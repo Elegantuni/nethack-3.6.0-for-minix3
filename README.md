@@ -11,7 +11,7 @@ make install <br />
 cd <br />
 <br />
 You will need to execute every time if you don't add to your path: <br />
-export PATH=/home/$USER/games <br />
+export PATH=/home/$USER/games:$PATH <br />
 <br />
 Then execute: <br />
 nethack <br />
