@@ -2,9 +2,7 @@
 This gives you the X11 version and it need X running <br />
 <br />
 From the root directory of nethack 3.6.0 as normal user execute x11 or tty patch: <br />
-$ patch -p0 -i mypatchx11.diff <br />
-or <br />
-$ patch -p0 -i mypatchtty.diff <br />
+$ patch -p0 -i mypatchx11.diff or $ patch -p0 -i mypatchtty.diff <br />
 $ cd sys/unix <br />
 $ ./setup.sh hints/unix <br />
 $ cd ../.. <br />
