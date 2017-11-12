@@ -1,0 +1,68 @@
+Only in .: mypatch.diff
+diff -ru ../nethack-3.6.0_original/sys/unix/Makefile.top ./sys/unix/Makefile.top
+--- ../nethack-3.6.0_original/sys/unix/Makefile.top	Wed Nov 18 20:54:59 2015
++++ ./sys/unix/Makefile.top	Sat Nov 11 18:48:38 2017
+@@ -282,7 +282,7 @@
+ 	true; $(POSTINSTALL)
+ # and a reminder
+ 	@echo You may also want to reinstall the man pages via the doc Makefile.
+-
++	cp sys/unix/sysconf /home/$(USER)/games/lib/nethackdir
+ 
+ # 'make clean' removes all the .o files, but leaves around all the executables
+ # and compiled data files
+diff -ru ../nethack-3.6.0_original/sys/unix/hints/unix ./sys/unix/hints/unix
+--- ../nethack-3.6.0_original/sys/unix/hints/unix	Fri Aug 14 03:59:06 2015
++++ ./sys/unix/hints/unix	Sat Nov 11 18:42:29 2017
+@@ -10,26 +10,26 @@
+ # and Makefiles.
+ 
+ 
+-PREFIX=/usr
++PREFIX=/home/$(USER)
+ HACKDIR=$(PREFIX)/games/lib/$(GAME)dir
+ INSTDIR=$(HACKDIR)
+ VARDIR=$(HACKDIR)
+ SHELLDIR=$(PREFIX)/games
+ 
+-CFLAGS=-O -I../include
++CFLAGS=-O -I../include -I/usr/X11R7/include -DX11_GRAPHICS -DDEFAULT_WINDOW_SYS=\"X11\" -DNOTTYGRAPHICS
+ LINK=$(CC)
+ 
+-WINSRC = $(WINTTYSRC)
+-WINOBJ = $(WINTTYOBJ)
+-WINLIB = $(WINTTYLIB)
++WINSRC = $(WINX11SRC)
++WINOBJ = $(WINX11OBJ)
++WINLIB = -L/usr/X11R7/lib -lXaw -lXmu -lXext -lXt -lX11
+ 
+ WINTTYLIB=-ltermlib
+ 
+-CHOWN=chown
+-CHGRP=chgrp
++CHOWN=true
++CHGRP=true
+ 
+-GAMEUID  = games
+-GAMEGRP  = bin
++GAMEUID  = $(USER)
++GAMEGRP  = users
+ 
+ GAMEPERM = 04755
+ VARFILEPERM = 0644
+Only in ./sys/unix/hints: unix.orig
+diff -ru ../nethack-3.6.0_original/sys/unix/sysconf ./sys/unix/sysconf
+--- ../nethack-3.6.0_original/sys/unix/sysconf	Mon Dec  7 08:26:01 2015
++++ ./sys/unix/sysconf	Sat Nov 11 18:42:29 2017
+@@ -76,8 +76,8 @@
+ # 'gdb' be available; using LIBC only works if NetHack is linked with a
+ # libc that supports the backtrace(3) API.  Both require certain compilation
+ # options.  See src/end.c and sys/unix/hints/* for more information.
+-GDBPATH=/usr/bin/gdb
+-GREPPATH=/bin/grep
++#GDBPATH=/usr/bin/gdb
++GREPPATH=/usr/bin/grep
+ # Values are priorities: 0 - do not use this method, 1 - low priority,
+ # 2 - high priority.  Non-zero priority methods are tried in order.
+ PANICTRACE_GDB=1
+Only in ./sys/unix: sysconf.orig
