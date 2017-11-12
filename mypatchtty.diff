@@ -1,0 +1,57 @@
+Only in .: mypatchtty.diff
+diff -ur ../nethack-3.6.0_original/sys/unix/Makefile.top ./sys/unix/Makefile.top
+--- ../nethack-3.6.0_original/sys/unix/Makefile.top	Wed Nov 18 20:54:59 2015
++++ ./sys/unix/Makefile.top	Sun Nov 12 16:37:13 2017
+@@ -282,7 +282,7 @@
+ 	true; $(POSTINSTALL)
+ # and a reminder
+ 	@echo You may also want to reinstall the man pages via the doc Makefile.
+-
++	cp sys/unix/sysconf /home/$(USER)/games/lib/nethackdir/
+ 
+ # 'make clean' removes all the .o files, but leaves around all the executables
+ # and compiled data files
+Only in ./sys/unix: Makefile.top.orig
+diff -ur ../nethack-3.6.0_original/sys/unix/hints/unix ./sys/unix/hints/unix
+--- ../nethack-3.6.0_original/sys/unix/hints/unix	Fri Aug 14 03:59:06 2015
++++ ./sys/unix/hints/unix	Sun Nov 12 16:37:13 2017
+@@ -10,7 +10,7 @@
+ # and Makefiles.
+ 
+ 
+-PREFIX=/usr
++PREFIX=/home/$(USER)
+ HACKDIR=$(PREFIX)/games/lib/$(GAME)dir
+ INSTDIR=$(HACKDIR)
+ VARDIR=$(HACKDIR)
+@@ -25,11 +25,11 @@
+ 
+ WINTTYLIB=-ltermlib
+ 
+-CHOWN=chown
+-CHGRP=chgrp
++CHOWN=true
++CHGRP=true
+ 
+-GAMEUID  = games
+-GAMEGRP  = bin
++GAMEUID  = $(USER)
++GAMEGRP  = users
+ 
+ GAMEPERM = 04755
+ VARFILEPERM = 0644
+Only in ./sys/unix/hints: unix.orig
+diff -ur ../nethack-3.6.0_original/sys/unix/sysconf ./sys/unix/sysconf
+--- ../nethack-3.6.0_original/sys/unix/sysconf	Mon Dec  7 08:26:01 2015
++++ ./sys/unix/sysconf	Sun Nov 12 16:37:34 2017
+@@ -76,8 +76,8 @@
+ # 'gdb' be available; using LIBC only works if NetHack is linked with a
+ # libc that supports the backtrace(3) API.  Both require certain compilation
+ # options.  See src/end.c and sys/unix/hints/* for more information.
+-GDBPATH=/usr/bin/gdb
+-GREPPATH=/bin/grep
++#GDBPATH=/usr/bin/gdb
++GREPPATH=/usr/bin/grep
+ # Values are priorities: 0 - do not use this method, 1 - low priority,
+ # 2 - high priority.  Non-zero priority methods are tried in order.
+ PANICTRACE_GDB=1
