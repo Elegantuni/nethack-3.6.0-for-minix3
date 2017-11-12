@@ -1,0 +1,1 @@
+# nethack-3.6.0-for-minix3
