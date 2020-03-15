@@ -11,7 +11,7 @@ $ patch -p0 -i mypatchtty.diff <br />
 $ cd sys/unix <br />
 $ ./setup.sh hints/unix <br />
 $ cd ../.. <br />
-1-25-2020 the current nethack you should run $ make fetch-Lua at this moment then the rest of the commands should work. <br />
+1-25-2020 the current nethack you should run $ make fetch-Lua at this moment.  cd lib/lua-*/src.  Replace * with the version there.  Edit Makefile with vi and change gcc to clang the rest of the commands should work. <br />
 $ make <br />
 $ make install <br />
 $ cd <br />
